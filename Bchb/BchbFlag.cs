@@ -1,10 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Bchb
+﻿namespace Bchb
 {
-    class BchbFlag
+    using System;
+
+    /// <sumary>
+    /// BchcFlag the class.
+    /// </sumary>>
+    public class BchbFlag
     {
         private int floor;
         private int entrance;
