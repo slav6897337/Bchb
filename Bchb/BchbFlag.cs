@@ -7,68 +7,73 @@ namespace Bchb
     class BchbFlag
     {
         private int floor;
+        private int entrance;
+        private int apartment;
+
         public int Floor
         {
-            get => floor;
-          
+            get => this.floor;
+
             set
             {
-                floor = value >= 3 ? value :
+                this.floor = value >= 3 ? value :
                 throw new ArgumentException($"Floor = {value} must be more 3");
             }
         }
-        private int entrance;
+
         public int Entrance
-        { 
+        {
             get
             {
-                return entrance;
-            }
-            set
-            {
-               entrance = 
-               value <= floor &&
-               value > 3 &&
-               value % floor == 0 ? 
-               value : throw new ArgumentException($"Entrance = {value} must be more 3, less floor and multiples floor");
-            } 
-        }
-        private int apartment;
-        public int Apartment
-        { 
-            get
-            {
-                return apartment;
+                return this.entrance;
             }
 
             set
             {
-                apartment = 
-                value > entrance &&
-                value % entrance == 0 ? 
+                this.entrance =
+                value <= this.floor &&
+                value > 3 &&
+                value % this.floor == 0 ?
+                value : throw new ArgumentException($"Entrance = {value} must be more 3, less floor and multiples floor");
+            }
+        }
+
+        public int Apartment
+        {
+            get
+            {
+                return this.apartment;
+            }
+
+            set
+            {
+                this.apartment =
+                value > this.entrance &&
+                value % this.entrance == 0 ?
                 value : throw new ArgumentException($"Apartment = {value} must be more 3 and multiples entrance");
             }
         }
 
-        public BchbFlag() 
+        public BchbFlag()
         {
-            floor = 3;
-            entrance = 3;
-            apartment = 9;        
+            this.floor = 3;
+            this.entrance = 3;
+            this.apartment = 9;
         }
+
         public BchbFlag(int floor, int entrance, int apartment)
         {
             this.floor = floor >= 3 ? floor : throw new ArgumentException($"Floor = {floor} must be more 3");
 
-            this.entrance = 
+            this.entrance =
             entrance <= floor &&
             entrance > 3 &&
-            entrance % floor == 0 ? 
+            entrance % floor == 0 ?
             floor : throw new ArgumentException($"Entrance = {entrance} must be more 3, less floor and multiples floor");
 
-            this.apartment = 
+            this.apartment =
             apartment > entrance &&
-            apartment % entrance == 0 ? 
+            apartment % entrance == 0 ?
             apartment : throw new ArgumentException($"Apartment = {apartment} must be more 3 and multiples entrance {entrance}");
         }
 
@@ -78,22 +83,22 @@ namespace Bchb
             string light;
             int counter = 0;
             int counterFloor = 0;
-            int apartmentOnFloor = apartment / floor;
-            int tempFloor = floor;
+            int apartmentOnFloor = this.apartment / this.floor;
+            int tempFloor = this.floor;
             while (tempFloor % 3 != 0)
             {
                 tempFloor--;
                 counterFloor++;
-                counter += apartmentOnFloor;                
+                counter += apartmentOnFloor;
             }
 
-            int temp = (apartment + 1 - counter) / 3;
+            int temp = (this.apartment + 1 - counter) / 3;
             if (counter > 1)
             {
                 Console.WriteLine($"Нижние этажи не должны включать свет, а это квартиры с  1 по {counter}");
-
             }
-            for (; counter < apartment; counter++)
+
+            for (; counter < this.apartment; counter++)
             {
                 if (counter == temp)
                 {
@@ -103,19 +108,18 @@ namespace Bchb
 
                 light = color ? "красный" : "белый";
                 Console.WriteLine($"Квартира номер {counter + 1} должна включить {light} свет");
-              
             }
         }
 
         public void PrintFlag()
         {
-            int apartmentOnFloor = apartment / floor;
-            int tempFloor = floor;
+            int apartmentOnFloor = this.apartment / this.floor;
+            int tempFloor = this.floor;
             bool color = false;
             int counter = 0;
             while (tempFloor % 3 != 0)
             {
-                tempFloor--; ;
+                tempFloor--;
                 counter++;
             }
 
@@ -129,13 +133,14 @@ namespace Bchb
                     countFloor += countFloor;
                     color = !color;
                 }
+
                 Console.Write("\t ");
 
                 for (int j = 1; j <= apartmentOnFloor; j++)
                 {
                     if (!color)
                     {
-                        Console.BackgroundColor = ConsoleColor.White;                        
+                        Console.BackgroundColor = ConsoleColor.White;
                         Console.ForegroundColor = ConsoleColor.White;
                         Console.Write(" ");
                         Console.ResetColor();
@@ -150,15 +155,14 @@ namespace Bchb
                         Console.Write(" ");
                     }
                 }
-                Console.WriteLine(" \n");
 
+                Console.WriteLine(" \n");
             }
 
             for (int i = 0; i < counter; i++)
             {
                 Console.WriteLine(" \n");
             }
-
         }
     }
 }
